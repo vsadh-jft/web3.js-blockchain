@@ -30,14 +30,11 @@
 <br>
 
 <div class="row">
-    <div class="col-sm-4">
-      <h2 id="instructor"></h2>
-    </div>
 
-    <div class="col-sm-2">
-      <input type="file" id="file"/>
 
-    </div>
+  <div class="col-sm-2 offset-md-1">
+    <input type="file" id="file"/>
+  </div>
   <div class="col-sm-2">
     <input type="button" onclick="calculate();" value="Upload" class="btn primary" />
 
@@ -45,9 +42,28 @@
 </div>
 
 <br>
-<label for="index" class="col-lg-2 control-label">Index</label>
-<input id="index" type="text">
-<button id="button">Get hash at index</button>
+<div class="row">
+  <div class="col-sm-6">
+    <label for="index" class="col-sm-1 ">Index</label>
+    <input id="index" type="text">
+    <button id="button">Get hash at index</button>
+
+  </div>
+
+  <div class="col-sm-2">
+
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-md-8 offset-md-1">
+    File name : <span id="fileName"></span> <br>
+    File hash : <span id="fileHash"></span>
+  </div>
+
+</div>
+
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
@@ -76,7 +92,8 @@
     Coursetro.getFile($('#index').val(),function(error, result){
       if(!error)
       {
-        $("#instructor").html(result[0]+': '+result[1]);
+        $("#fileName").html(result[0]);
+        $("#fileHash").html(result[1]);
         console.log(result);
       }
       else
