@@ -37,6 +37,7 @@ module.exports.routes = {
   },
 
   'get /upload': 'UploadController.uploadFile',
+  'get /listenEvent': 'UploadController.listenEvent',
 
   /***************************************************************************
   *                                                                          *

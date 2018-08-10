@@ -4,8 +4,10 @@
  * @description :: Server-side logic for managing uploads
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
+var fs = require('fs');
 var uuid = require('uuid');
 var Web3 = require('web3');
+var crypto = require('crypto');
 var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:8545'));
 const address = '0x14e6b19304fb3c98a73acea5f80d2c056ee5c09f'; // user
 
@@ -24,6 +26,16 @@ module.exports = {
     var contractInfo = JSON.parse('{"contract_name": "FileDetail","abi":[{"constant":false,"inputs":[{"name":"uuid","type":"string"},{"name":"fName","type":"string"},{"name":"fileHash","type":"string"}],"name":"setFile","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"anonymous":false,"inputs":[{"indexed":false,"name":"fileName","type":"string"},{"indexed":false,"name":"fileHash","type":"string"}],"name":"Uploaded","type":"event"},{"constant":true,"inputs":[{"name":"uuid","type":"string"}],"name":"getFile","outputs":[{"name":"fileName","type":"string"},{"name":"fileHash","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]  }');
     var CoursetroContract = web3.eth.contract(contractInfo.abi)
     var Coursetro = CoursetroContract.at('0x3958c21a7037d4a53c2990834c59ca3dcb00d988');
+
+
+    fs.createReadStream('/home/vivek/car.jpg').
+    pipe(crypto.createHash('sha1').setEncoding('hex')).
+    on('finish', function () {
+      console.log(this.read()) //the hash
+      console.log(this.read()) //the hash
+    })
+
+
     var fileName = "vivek.pdf";
     var identifier = uuid.v4();
     console.log("uuid is " + identifier);
@@ -41,12 +53,12 @@ module.exports = {
   },
 
   listenEvent: function (req, res) {
-    /* Fallback to local node or remote node2
-       by default local HTTP-RPC server exposes port 8545.
-       you can use Infura Node Urls also
-       'https://ropsten.infura.io/<API KEy>'*/
-
-
+    fs.createReadStream('/home/vivek/car.jpg').
+    pipe(crypto.createHash('sha256').setEncoding('hex')).
+    on('finish', function () {
+      console.log(this.read()) //the hash
+      console.log("here..") //the hash
+    })
   },
 };
 
